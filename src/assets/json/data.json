@@ -1,0 +1,177 @@
+[
+    {
+        "id": 1,
+        "nombre": "Ensalada de quinoa",
+        "fotografia": "/src/assets/img/ensalada_quinoa.jpg",
+        "ingredientes": [
+            "quinoa",
+            "tomate",
+            "pepino",
+            "cebolla",
+            "pimiento",
+            "aceitunas",
+            "vinagreta"
+        ],
+        "precio": 10.99,
+        "intolerancias": [
+            "Cualquiera"
+        ]
+    },
+    {
+        "id": 2,
+        "nombre": "Lasaña de verduras",
+        "fotografia": "/src/assets/img/lasana_verduras.jpg",
+        "ingredientes": [
+            "pasta de lasaña",
+            "berenjena",
+            "calabacín",
+            "cebolla",
+            "salsa de tomate",
+            "queso"
+        ],
+        "precio": 12.5,
+        "intolerancias": [
+            "Veganos"
+        ]
+    },
+    {
+        "id": 3,
+        "nombre": "Sopa de lentejas",
+        "fotografia": "/src/assets/img/sopa_lentejas.jpg",
+        "ingredientes": [
+            "lentejas",
+            "zanahoria",
+            "apio",
+            "cebolla",
+            "ajo",
+            "caldo de verduras"
+        ],
+        "precio": 8.99,
+        "intolerancias": [
+            "Cualquiera"
+        ]
+    },
+    {
+        "id": 4,
+        "nombre": "Pollo a la parrilla",
+        "fotografia": "/src/assets/img/pollo_parrilla.jpg",
+        "ingredientes": [
+            "pollo",
+            "limón",
+            "ajo",
+            "aceite de oliva",
+            "sal",
+            "pimienta"
+        ],
+        "precio": 15.99,
+        "intolerancias": [
+            "Cualquiera"
+        ]
+    },
+    {
+        "id": 5,
+        "nombre": "Sushi vegano",
+        "fotografia": "/src/assets/img/sushi_vegano.jpg",
+        "ingredientes": [
+            "arroz",
+            "alga nori",
+            "aguacate",
+            "pepino",
+            "zanahoria"
+        ],
+        "precio": 14.5,
+        "intolerancias": [
+            "Veganos"
+        ]
+    },
+    {
+        "id": 6,
+        "nombre": "Tarta de frutas",
+        "fotografia": "/src/assets/img/tarta_frutas.jpg",
+        "ingredientes": [
+            "masa de tarta",
+            "fresas",
+            "kiwi",
+            "piña",
+            "melocotón",
+            "mango",
+            "mermelada"
+        ],
+        "precio": 18.75,
+        "intolerancias": [
+            "Veganos",
+            "Lactosa"
+        ]
+    },
+    {
+        "id": 7,
+        "nombre": "Ensalada César",
+        "fotografia": "/src/assets/img/ensalada_cesar.jpg",
+        "ingredientes": [
+            "lechuga romana",
+            "pollo",
+            "pan tostado",
+            "queso parmesano",
+            "salsa César",
+            "limón"
+        ],
+        "precio": 13.25,
+        "intolerancias": [
+            "Veganos",
+            "Lactosa"
+        ]
+    },
+    {
+        "id": 8,
+        "nombre": "Pastel de carne",
+        "fotografia": "/src/assets/img/pastel_carne.jpg",
+        "ingredientes": [
+            "carne molida",
+            "cebolla",
+            "zanahoria",
+            "apio",
+            "puré de patatas",
+            "caldo de carne"
+        ],
+        "precio": 16.99,
+        "intolerancias": [
+            "Celiacos",
+            "Lactosa"
+        ]
+    },
+    {
+        "id": 9,
+        "nombre": "Ensalada caprese",
+        "fotografia": "/src/assets/img/ensalada_caprese.jpg",
+        "ingredientes": [
+            "tomate",
+            "mozzarella",
+            "albahaca",
+            "aceite de oliva",
+            "vinagre balsámico",
+            "sal"
+        ],
+        "precio": 11.99,
+        "intolerancias": [
+            "Veganos",
+            "Celiacos"
+        ]
+    },
+    {
+        "id": 10,
+        "nombre": "Risotto de champiñones",
+        "fotografia": "/src/assets/img/risotto_champinones.jpg",
+        "ingredientes": [
+            "arroz Arborio",
+            "champiñones",
+            "cebolla",
+            "caldo de pollo",
+            "vino blanco",
+            "queso parmesano"
+        ],
+        "precio": 17.5,
+        "intolerancias": [
+            "Celiacos"
+        ]
+    }
+]
