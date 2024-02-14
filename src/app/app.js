@@ -6,6 +6,7 @@ var estructuraHTML = `
     
     <img class="imgComida" src="Fotografia" alt="Fotografia_comida">
     
+    <div>
     <ul class="Ingr">
     <h3> 
     Ingredientes:
@@ -18,40 +19,130 @@ var estructuraHTML = `
      
         <div class="ING">
     
-            ing
+           <p> ing </p>
        
         </div>
+
+
         
 
     </div>
-
-   <p>Intolerancias</p>
+    <h3 class="Apto">Apto:</h3>
+   <p class="Into">Intolerancias</p>
    
-    <li><span>Precio €</span></li>
+   <h3>Precio €</h3>
     
+
+   <button class="btnPedir">Pedir</button>
 </div>
 `;
 
 
 
 function apiConnection() {
-    fetch(api)
-        .then(response => response.json())
-        .then(data => {
-            data.forEach(plato => {
+    return fetch(api)
+        .then(response => response.json());
+}
 
 
-                let platoHTML = estructuraHTML
+
+function orderData(data,checkboxValue) {
+    data.forEach(plato => {
+
+
+        plato.forEach(intolerancia => {
+
+            switch (intolerancia.intolerancias) {
+                case intolerancia.intolerancias.includes('Cualquiera'):
+                    let platoHTMLCual = estructuraHTML
                     .replace('Titulo-plato', plato.nombre)
                     .replace('Fotografia', plato.fotografia)
                     .replace('Nombre', plato.nombre)
-                    .replace('ing', plato.ingredientes.join(', '))
+                    .replace('ing', plato.ingredientes.join(', ').toUpperCase())
                     .replace('Intolerancias', plato.intolerancias.join(', '))
                     .replace('Precio', plato.precio);
-                platos.innerHTML += platoHTML;
-            });
+                platos.innerHTML += platoHTMLCual;
+    
+
+                    break;
+                case intolerancia.intolerancias.includes('Celiacos'):
+
+                    let platoHTMLCeli = estructuraHTML
+                        .replace('Titulo-plato', plato.nombre)
+                        .replace('Fotografia', plato.fotografia)
+                        .replace('Nombre', plato.nombre)
+                        .replace('ing', plato.ingredientes.join(', ').toUpperCase())
+                        .replace('Intolerancias', plato.intolerancias.join(', '))
+                        .replace('Precio', plato.precio);
+                    platos.innerHTML += platoHTMLCeli;
+
+                    break;
+                case intolerancia.intolerancias.includes('Lactosa'):
+                    let platoHTMLLact = estructuraHTML
+                        .replace('Titulo-plato', plato.nombre)
+                        .replace('Fotografia', plato.fotografia)
+                        .replace('Nombre', plato.nombre)
+                        .replace('ing', plato.ingredientes.join(', ').toUpperCase())
+                        .replace('Intolerancias', plato.intolerancias.join(', '))
+                        .replace('Precio', plato.precio);
+                    platos.innerHTML += platoHTMLLact;
+
+                    break;
+                case intolerancia.intolerancias.includes('Veganos'):
+                    let platoHTMLVeg = estructuraHTML
+                        .replace('Titulo-plato', plato.nombre)
+                        .replace('Fotografia', plato.fotografia)
+                        .replace('Nombre', plato.nombre)
+                        .replace('ing', plato.ingredientes.join(', ').toUpperCase())
+                        .replace('Intolerancias', plato.intolerancias.join(', '))
+                        .replace('Precio', plato.precio);
+                    platos.innerHTML += platoHTMLVeg;
+
+
+                    break;
+                default:
+                    let platoHTMLDef = estructuraHTML
+                        .replace('Titulo-plato', plato.nombre)
+                        .replace('Fotografia', plato.fotografia)
+                        .replace('Nombre', plato.nombre)
+                        .replace('ing', plato.ingredientes.join(', ').toUpperCase())
+                        .replace('Intolerancias', plato.intolerancias.join(', '))
+                        .replace('Precio', plato.precio);
+                    platos.innerHTML += platoHTMLDef;
+                    break;
+            }
         });
+    });
+}
+
+function ifChecked() {
+
+    const checkboxes = document.querySelectorAll('input[type="checkbox"]');
+
+    checkboxes.forEach(checkbox => {
+        checkbox.addEventListener('change', function () {
+            if (atLeastOneChecked()) {
+                console.log('HAZ MARCADO UN CHECKBOX');
+            } else {
+                apiConnection().then(data => orderData(data,atLeastOneChecked));
+            }
+        });
+    });
+
+    function atLeastOneChecked() {
+        for (let i = 0; i < checkboxes.length; i++) {
+            if (checkboxes[i].checked) {
+                
+              return CheckboxValue = checkboxes[i].value;  
+
+
+            }
+        }
+    }
+
+
+
 
 }
 
-apiConnection();
+ifChecked();
