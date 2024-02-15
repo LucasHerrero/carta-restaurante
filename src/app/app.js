@@ -46,7 +46,7 @@ function apiConnection() {
 
 
 
-function orderData(data,checkboxValue) {
+function orderData(data, checkboxValue) {
     data.forEach(plato => {
 
 
@@ -55,14 +55,14 @@ function orderData(data,checkboxValue) {
             switch (intolerancia.intolerancias) {
                 case intolerancia.intolerancias.includes('Cualquiera'):
                     let platoHTMLCual = estructuraHTML
-                    .replace('Titulo-plato', plato.nombre)
-                    .replace('Fotografia', plato.fotografia)
-                    .replace('Nombre', plato.nombre)
-                    .replace('ing', plato.ingredientes.join(', ').toUpperCase())
-                    .replace('Intolerancias', plato.intolerancias.join(', '))
-                    .replace('Precio', plato.precio);
-                platos.innerHTML += platoHTMLCual;
-    
+                        .replace('Titulo-plato', plato.nombre)
+                        .replace('Fotografia', plato.fotografia)
+                        .replace('Nombre', plato.nombre)
+                        .replace('ing', plato.ingredientes.join(', ').toUpperCase())
+                        .replace('Intolerancias', plato.intolerancias.join(', '))
+                        .replace('Precio', plato.precio);
+                    platos.innerHTML += platoHTMLCual;
+
 
                     break;
                 case intolerancia.intolerancias.includes('Celiacos'):
@@ -115,34 +115,41 @@ function orderData(data,checkboxValue) {
     });
 }
 
-function ifChecked() {
+
+
+
+
+function atLeastOneChecked() {
 
     const checkboxes = document.querySelectorAll('input[type="checkbox"]');
-
-    checkboxes.forEach(checkbox => {
-        checkbox.addEventListener('change', function () {
-            if (atLeastOneChecked()) {
-                console.log('HAZ MARCADO UN CHECKBOX');
+    var valueCheckbox;
+    var arrValueCheck = [];
+    checkboxes.forEach((checkbox) => {
+        checkbox.addEventListener('change', () => {
+            if (checkbox.checked) {
+                valueCheckbox = checkbox.value;
+                if (arrValueCheck.includes(valueCheckbox)) {
+                    arrValueCheck.pop(valueCheckbox);
+                } else {
+                    arrValueCheck.push(valueCheckbox);
+                }
             } else {
-                apiConnection().then(data => orderData(data,atLeastOneChecked));
-            }
-        });
-    });
-
-    function atLeastOneChecked() {
-        for (let i = 0; i < checkboxes.length; i++) {
-            if (checkboxes[i].checked) {
+            if (arrValueCheck.includes(valueCheckbox)) {
+                arrValueCheck.pop(valueCheckbox);
                 
-              return CheckboxValue = checkboxes[i].value;  
-
-
             }
         }
+                console.log(arrValueCheck);
+                return arrValueCheck; // Devuelve un array con los valores de los checkbox seleccionados 
+                                        //SI SE DESELECCIONAN ELIMINA LOS ULTIMOS VALORES (NO FUNCIONA BIEN)
+        });
+
+    });
     }
 
 
 
 
-}
 
-ifChecked();
+    atLeastOneChecked();
+
