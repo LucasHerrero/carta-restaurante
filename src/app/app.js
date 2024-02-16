@@ -118,38 +118,33 @@ function orderData(data, checkboxValue) {
 
 
 
-
 function atLeastOneChecked() {
-
     const checkboxes = document.querySelectorAll('input[type="checkbox"]');
-    var valueCheckbox;
     var arrValueCheck = [];
     checkboxes.forEach((checkbox) => {
         checkbox.addEventListener('change', () => {
+            var valueCheckbox = checkbox.value;
+            if (arrValueCheck.length === 0) {
+                arrValueCheck.push('Cualquiera');
+            }
             if (checkbox.checked) {
-                valueCheckbox = checkbox.value;
-                if (arrValueCheck.includes(valueCheckbox)) {
-                    arrValueCheck.pop(valueCheckbox);
-                } else {
+                if (!arrValueCheck.includes(valueCheckbox)) {
                     arrValueCheck.push(valueCheckbox);
                 }
             } else {
-            if (arrValueCheck.includes(valueCheckbox)) {
-                arrValueCheck.pop(valueCheckbox);
-                
+                if (arrValueCheck.includes(valueCheckbox)) {
+                    arrValueCheck = arrValueCheck.filter((value) => value !== valueCheckbox);
+                }
             }
-        }
-                console.log(arrValueCheck);
-                return arrValueCheck; // Devuelve un array con los valores de los checkbox seleccionados 
-                                        //SI SE DESELECCIONAN ELIMINA LOS ULTIMOS VALORES (NO FUNCIONA BIEN)
+            console.log(arrValueCheck);
+            return arrValueCheck;
         });
-
     });
-    }
+}
 
 
 
 
 
-    atLeastOneChecked();
+atLeastOneChecked();
 
