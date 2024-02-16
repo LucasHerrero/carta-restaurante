@@ -46,105 +46,92 @@ function apiConnection() {
 
 
 
-function orderData(data, checkboxValue) {
-    data.forEach(plato => {
+function orderData(data) {
+ 
 
 
-        plato.forEach(intolerancia => {
-
-            switch (intolerancia.intolerancias) {
-                case intolerancia.intolerancias.includes('Cualquiera'):
-                    let platoHTMLCual = estructuraHTML
-                        .replace('Titulo-plato', plato.nombre)
-                        .replace('Fotografia', plato.fotografia)
-                        .replace('Nombre', plato.nombre)
-                        .replace('ing', plato.ingredientes.join(', ').toUpperCase())
-                        .replace('Intolerancias', plato.intolerancias.join(', '))
-                        .replace('Precio', plato.precio);
-                    platos.innerHTML += platoHTMLCual;
 
 
-                    break;
-                case intolerancia.intolerancias.includes('Celiacos'):
+    // data.forEach(plato => {
 
-                    let platoHTMLCeli = estructuraHTML
-                        .replace('Titulo-plato', plato.nombre)
-                        .replace('Fotografia', plato.fotografia)
-                        .replace('Nombre', plato.nombre)
-                        .replace('ing', plato.ingredientes.join(', ').toUpperCase())
-                        .replace('Intolerancias', plato.intolerancias.join(', '))
-                        .replace('Precio', plato.precio);
-                    platos.innerHTML += platoHTMLCeli;
-
-                    break;
-                case intolerancia.intolerancias.includes('Lactosa'):
-                    let platoHTMLLact = estructuraHTML
-                        .replace('Titulo-plato', plato.nombre)
-                        .replace('Fotografia', plato.fotografia)
-                        .replace('Nombre', plato.nombre)
-                        .replace('ing', plato.ingredientes.join(', ').toUpperCase())
-                        .replace('Intolerancias', plato.intolerancias.join(', '))
-                        .replace('Precio', plato.precio);
-                    platos.innerHTML += platoHTMLLact;
-
-                    break;
-                case intolerancia.intolerancias.includes('Veganos'):
-                    let platoHTMLVeg = estructuraHTML
-                        .replace('Titulo-plato', plato.nombre)
-                        .replace('Fotografia', plato.fotografia)
-                        .replace('Nombre', plato.nombre)
-                        .replace('ing', plato.ingredientes.join(', ').toUpperCase())
-                        .replace('Intolerancias', plato.intolerancias.join(', '))
-                        .replace('Precio', plato.precio);
-                    platos.innerHTML += platoHTMLVeg;
-
-
-                    break;
-                default:
-                    let platoHTMLDef = estructuraHTML
-                        .replace('Titulo-plato', plato.nombre)
-                        .replace('Fotografia', plato.fotografia)
-                        .replace('Nombre', plato.nombre)
-                        .replace('ing', plato.ingredientes.join(', ').toUpperCase())
-                        .replace('Intolerancias', plato.intolerancias.join(', '))
-                        .replace('Precio', plato.precio);
-                    platos.innerHTML += platoHTMLDef;
-                    break;
-            }
-        });
-    });
+    //     if (plato.intolerancias.includes(valueCheck) || valueCheck == 'Cualquiera') {
+    //             let platoHTMLDef = estructuraHTML
+    //             .replace('Titulo-plato', plato.nombre)
+    //             .replace('Fotografia', plato.fotografia)
+    //             .replace('Nombre', plato.nombre)
+    //             .replace('ing', plato.ingredientes.join(', ').toUpperCase())
+    //             .replace('Intolerancias', plato.intolerancias.join(', '))
+    //             .replace('Precio', plato.precio);
+    //         platos.innerHTML += platoHTMLDef;
+    //     }
+    // });
 }
 
-
-
-
-function atLeastOneChecked() {
-    const checkboxes = document.querySelectorAll('input[type="checkbox"]');
-    var arrValueCheck = [];
-    checkboxes.forEach((checkbox) => {
-        checkbox.addEventListener('change', () => {
-            var valueCheckbox = checkbox.value;
-            if (arrValueCheck.length === 0) {
-                arrValueCheck.push('Cualquiera');
-            }
-            if (checkbox.checked) {
-                if (!arrValueCheck.includes(valueCheckbox)) {
-                    arrValueCheck.push(valueCheckbox);
-                }
-            } else {
-                if (arrValueCheck.includes(valueCheckbox)) {
-                    arrValueCheck = arrValueCheck.filter((value) => value !== valueCheckbox);
-                }
-            }
-            console.log(arrValueCheck);
-            return arrValueCheck;
+apiConnection()
+        .then(data => {
+            orderData(data);
         });
-    });
-}
+
+        
+
+
+
+//  Esto Funciona
+// function atLeastOneChecked() {
+//     const checkboxes = document.querySelectorAll('input[type="checkbox"]');
+//     var arrValueCheck = [];
+//     var valueCheck;
+    
+//     valueCheck = 'Cualquiera';
+//     if(valueCheck == checkbox.value) {
+//         valueCheck = '';
+//        } 
+//        if (valueCheck == 'Cualquiera') {
+//         apiConnection()
+//         .then(data => {
+//             orderData(data,valueCheck);
+//         });
+//        }      
+
+//     checkboxes.forEach((checkbox) => {
+             
+//         checkbox.addEventListener('change', () => {
+//            if(valueCheck == checkbox.value) {
+//             valueCheck = '';
+//            } else {
+//             valueCheck = checkbox.value;
+//                        }
+              
+           
+
+//             if (valueCheck == 'Celiacos') {
+//                 apiConnection()
+//          .then(data => {
+//             orderData(data,valueCheck);
+//             });  
+//         } else if (valueCheck == 'Veganos') {
+//             apiConnection()
+//             .then(data => {
+//                 orderData(data,valueCheck);
+//             });
+//         }else if (valueCheck == 'Lactosa') {
+//             apiConnection()
+//             .then(data => {
+//                 orderData(data,valueCheck);
+//             });
+//         }  
+
+
+
+//        });
+//     });
+
+            
+            
+            
+        
 
 
 
 
-
-atLeastOneChecked();
-
+// atLeastOneChecked();
