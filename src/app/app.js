@@ -30,108 +30,166 @@ var estructuraHTML = `
     <h3 class="Apto">Apto:</h3>
    <p class="Into">Intolerancias</p>
    
-   <h3>Precio €</h3>
+   <h3 class="Price">Precio €</h3>
     
 
-   <button class="btnPedir">Pedir</button>
+   <button class="btnPedir">🤍 </button>
 </div>
 `;
 
 
 
-function apiConnection() {
-    return fetch(api)
-        .then(response => response.json());
+async function apiConnection() {
+    return await fetch(api)
+        .then(response => response.json()
+            .then(data => data));
+
 }
+
 
 
 
 function orderData(data) {
- 
 
+    data.forEach(plato => {
 
+       
 
+    let platoHTMLDef = estructuraHTML
+            .replace('Titulo-plato', plato.nombre)
+            .replace('Fotografia', plato.fotografia)
+            .replace('Nombre', plato.nombre)
+            .replace('ing', plato.ingredientes.join(', ').toUpperCase())
+            .replace('Intolerancias', plato.intolerancias.join(', '))
+            .replace('Precio', plato.precio);
+            
+            platos.innerHTML += platoHTMLDef;
+         
+    
+      
 
-    // data.forEach(plato => {
+    });
 
-    //     if (plato.intolerancias.includes(valueCheck) || valueCheck == 'Cualquiera') {
-    //             let platoHTMLDef = estructuraHTML
-    //             .replace('Titulo-plato', plato.nombre)
-    //             .replace('Fotografia', plato.fotografia)
-    //             .replace('Nombre', plato.nombre)
-    //             .replace('ing', plato.ingredientes.join(', ').toUpperCase())
-    //             .replace('Intolerancias', plato.intolerancias.join(', '))
-    //             .replace('Precio', plato.precio);
-    //         platos.innerHTML += platoHTMLDef;
-    //     }
-    // });
+    allCheckboxes();
+    btnFav();
 }
 
-apiConnection()
-        .then(data => {
-            orderData(data);
+
+
+function allCheckboxes() {
+    const chekboxes = document.querySelectorAll('input[type="checkbox"]');
+    const platos2 = document.querySelectorAll('.plato'); 
+
+    var arrCheck = [];
+    chekboxes.forEach(checkbox => {
+
+
+        checkbox.addEventListener('change', () => {
+            
+          
+            if (checkbox.checked) {
+                   
+                switch (checkbox.value) {
+                    case 'Celiacos':  
+                    arrCheck.push(checkbox.value);
+                    platos2.forEach(plato => {
+                      
+                        if (!plato.querySelector('.Into').textContent.includes('Celiacos')) {
+                            plato.style.display = 'none';
+                        }
+                    });
+                        break;
+                        case 'Lactosa':   arrCheck.push(checkbox.value);
+                          platos2.forEach(plato => {
+
+                            if (!plato.querySelector('.Into').textContent.includes('Lactosa')) {
+                                plato.style.display = 'none';
+                            }
+                        });
+                        break;
+                        case 'Veganos': 
+                        arrCheck.push(checkbox.value);
+                         platos2.forEach(plato => {
+                            if (!plato.querySelector('.Into').textContent.includes('Veganos')) {
+                                plato.style.display = 'none';
+                            }
+                        });
+                        break;
+                        case 'Cualquiera':    arrCheck.push(checkbox.value);
+                        
+                        platos2.forEach(plato => {
+                            plato.style.display = 'flex';
+                        });
+                }      
+                    }else {
+                        arrCheck = arrCheck.filter((item) => item !== checkbox.value);
+                    platos2.forEach(plato => {
+                        plato.style.display = 'flex';
+
+                    })
+                }
+                localStorage.setItem('arrCheck', JSON.stringify(arrCheck));
         });
 
-        
+            //Push valor del array al localstorage
+          
 
 
 
-//  Esto Funciona
-// function atLeastOneChecked() {
-//     const checkboxes = document.querySelectorAll('input[type="checkbox"]');
-//     var arrValueCheck = [];
-//     var valueCheck;
+        //
+        if (localStorage.getItem('arrCheck')) {
+            arrCheck = JSON.parse(localStorage.getItem('arrCheck'));
+            arrCheck.forEach(item => {
+                if (checkbox.value === item) {
+                    checkbox.checked = true;
+                    checkbox.dispatchEvent(new Event('change'));
+                }
+            });
+        }else {}
+       
     
-//     valueCheck = 'Cualquiera';
-//     if(valueCheck == checkbox.value) {
-//         valueCheck = '';
-//        } 
-//        if (valueCheck == 'Cualquiera') {
-//         apiConnection()
-//         .then(data => {
-//             orderData(data,valueCheck);
-//         });
-//        }      
+    });
+}
 
-//     checkboxes.forEach((checkbox) => {
-             
-//         checkbox.addEventListener('change', () => {
-//            if(valueCheck == checkbox.value) {
-//             valueCheck = '';
-//            } else {
-//             valueCheck = checkbox.value;
-//                        }
-              
-           
-
-//             if (valueCheck == 'Celiacos') {
-//                 apiConnection()
-//          .then(data => {
-//             orderData(data,valueCheck);
-//             });  
-//         } else if (valueCheck == 'Veganos') {
-//             apiConnection()
-//             .then(data => {
-//                 orderData(data,valueCheck);
-//             });
-//         }else if (valueCheck == 'Lactosa') {
-//             apiConnection()
-//             .then(data => {
-//                 orderData(data,valueCheck);
-//             });
-//         }  
+function btnFav() {
+    const btnFav = document.querySelectorAll('.btnPedir');
+    var arrFav = [];
 
 
 
-//        });
-//     });
+  btnFav.forEach(btn => {
 
-            
-            
-            
-        
+    if (localStorage.getItem('arrFav')) {
+        arrFav = JSON.parse(localStorage.getItem('arrFav'));
+        arrFav.forEach(item => {
+            if (btn.closest('.plato').querySelector('h2').textContent === item) {
+                btn.classList.remove('btnPedir');
+                btn.classList.add('btnFavorito');
+            }
+        });
+    }
+ 
+
+   btn.addEventListener('click', () => {
+
+    var titu = btn.closest('.plato');
+    titu = titu.querySelector('h2').textContent;
+
+    if (btn.classList.contains('btnPedir')) {
+        btn.classList.remove('btnPedir');
+        btn.classList.add('btnFavorito');
+        arrFav.push(titu);
 
 
+    }else if(btn.classList.contains('btnFavorito')) {
+        btn.classList.remove('btnFavorito');
+        btn.classList.add('btnPedir');
+        arrFav = arrFav.filter((item) => item !== titu);
+    }
+console.log(arrFav);
+    localStorage.setItem('arrFav', JSON.stringify(arrFav));
 
-
-// atLeastOneChecked();
+   }); 
+});
+}
+apiConnection().then(data => orderData(data));
