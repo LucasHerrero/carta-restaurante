@@ -6,26 +6,54 @@
     <link rel="stylesheet" href="/src/css/style.css">
 
     <title>Document</title>
+<div class="title">
+    <h1>Carta resturante Lucas Herrero</h1>
+</div>
 
-<h1>Carta resturante Lucas Herrero</h1>
+<div class="checkboxDiv">
 
-<p> Filtrar por aptos: </p>
-<input type="checkbox" name="Cualquiera" id="Cualquiera" value="Cualquiera" checked > Cualquiera 
-<input type="checkbox" name="Celiacos" id="Celiacos" value="Celiacos" > Celiacos 
-<input type="checkbox" name="Lactosa" id="Lactosa" value="Lactosa"> Intolerante a la lactosa 
-<input type="checkbox" name="Veganos" id="Veganos" value="Veganos"> Veganos
-
-<h2>Elaborados</h2>
-
-<div class="OrdenDiv">
-    <button onclick="order()">Orden</button>
-    <div class="hidden">
-        
-        <button id="OrdenarNombre" onclick="">Ordenar por nombre</button>
-        <button id="OrdenarPrecio" onclick="">Ordenar por precio</button>
+    <h2>Filtrar por aptos:</h2>
+    <div>
+        <label for="Cualquiera">
+            <input type="checkbox" name="Cualquiera" id="Cualquiera" value="Cualquiera" checked disabled >  
+            Cualquiera
+        </label>
+    </div>
+    <div>
+<label for="Celiacos">
+    <input type="checkbox" name="Celiacos" id="Celiacos" value="Celiacos" >  
+    Celiacos
+</label>
+    </div>
+    <div>
+        <label for="Lactosa">
+            <input type="checkbox" name="Lactosa" id="Lactosa" value="Lactosa"> 
+            Intolerante a la lactosa
+        </label>
+    </div>
+    <div>
+             <label for="Veganos">
+                 <input type="checkbox" name="Veganos" id="Veganos" value="Veganos"> 
+                 Veganos
+        </label>
     </div>
 </div>
-    
+
+<div class="Elaborados">
+        <div class="OrdenDiv">
+        <div class="hidden">
+            <button class="OrdenBtn" value="asc">Ordenar por precio ascendente</button>
+            <button class="OrdenBtn" value="desc" >Ordenar por precio descendente</button>
+            <button class="OrdenBtn" value="normal">Volver a desordenar</button>
+        </div>
+        <button id="btnHam" onclick="toggleBtn()"><img src="/src/assets/img/menu.png" alt=""></button>
+    </div>
+    </div>
+    <div class="NPlatos">
+
+        <h2>Nuestros platos</h2>
+    </div>
+
 <div id="platos">
 
 </div>

@@ -49,41 +49,40 @@ async function apiConnection() {
 
 
 
-function orderData(data, orderBy) {
-    // Ordenar los datos
-    data.sort((a, b) => {
-        if (orderBy === 'asc') {
-            return a.precio - b.precio;
-        } else {
-            return b.precio - a.precio;
-        }
-    });
-
-
+function orderData(data, order) {
+console.log("entra");
+if(order == 'asc'){
+    data.sort((a, b) => a.precio - b.precio);
+    console.log(data);
+}else if(order == 'desc'){
+    data.sort((a, b) => b.precio - a.precio);
+}else if(order == 'normal'){
+    data.sort((a, b) => a.id - b.id);
 }
-  data.forEach(plato => {
-
-       
-
-    let platoHTMLDef = estructuraHTML
-            .replace('Titulo-plato', plato.nombre)
-            .replace('Fotografia', plato.fotografia)
-            .replace('Nombre', plato.nombre)
-            .replace('ing', plato.ingredientes.join(', ').toUpperCase())
-            .replace('Intolerancias', plato.intolerancias.join(', '))
-            .replace('Precio', plato.precio);
-            
-            platos.innerHTML += platoHTMLDef;
-         
     
-      
-
+    data.forEach(plato => {
+        
+        
+        
+        let platoHTMLDef = estructuraHTML
+        .replace('Titulo-plato', plato.nombre)
+        .replace('Fotografia', plato.fotografia)
+        .replace('Nombre', plato.nombre)
+        .replace('ing', plato.ingredientes.join(', ').toUpperCase())
+        .replace('Intolerancias', plato.intolerancias.join(', '))
+        .replace('Precio', plato.precio);
+        
+        platos.innerHTML += platoHTMLDef;
+        
+        
+        
+        
     });
 
     allCheckboxes();
     btnFav();
-
-
+}
+apiConnection().then(data => orderData(data, 'normal'));
 
 
 function allCheckboxes() {
@@ -125,14 +124,18 @@ function allCheckboxes() {
                             }
                         });
                         break;
-                        case 'Cualquiera':    arrCheck.push(checkbox.value);
+                        case 'Cualquiera':    
+                     
+                        arrCheck.push(checkbox.value);
                         
                         platos2.forEach(plato => {
                             plato.style.display = 'flex';
                         });
+                        
                 }      
                     }else {
                         arrCheck = arrCheck.filter((item) => item !== checkbox.value);
+                        
                     platos2.forEach(plato => {
                         plato.style.display = 'flex';
 
@@ -202,27 +205,51 @@ console.log(arrFav);
    }); 
 });
 }
-apiConnection().then(data => orderData(data, 'desc')); // Para ordenar de mayor a menor
+
 
 function order(){
-const Orden = document.querySelector('div.hidden');
-const Orden2 = document.querySelector('div.show');
 
-if(Orden!==null){
-  Orden.classList.remove('hidden');
-  Orden.classList.add('show');
+const btns = document.querySelectorAll('.OrdenBtn');
 
-}else if(Orden2!==null){
-  Orden2.classList.remove('show');
-  Orden2.classList.add('hidden');
+btns.forEach(btn => { 
+    
+    btn.addEventListener('click', () => {
+   console.log(btn);
+        if(btn.value === 'asc'){
+            platos.innerHTML = '';
+            apiConnection().then(data => orderData(data, 'asc'));
+            
+        }else if(btn.value === 'desc'){
+            platos.innerHTML = '';
+            apiConnection().then(data => orderData(data, 'desc'));
+        }else if(btn.value === 'normal'){
+            platos.innerHTML = '';
+            apiConnection().then(data => orderData(data, 'normal'));
+        }
+    });
+
+});
+
+
+
 }
+
+
+function toggleBtn() {
+    const Orden = document.querySelector('div.hidden');
+    const Orden2 = document.querySelector('div.show');
+    const btnHam = document.getElementById('btnHam');
+    if(Orden!==null){
+        Orden.classList.remove('hidden');
+        Orden.classList.add('show');
+      
+      }else if(Orden2!==null){
+        Orden2.classList.remove('show');
+        Orden2.classList.add('hidden');
+      }
+      
 }
 
-function orderAsc(data){
-    data.precio.sort((a, b) => a - b);
-}
 
-function orderDesc(){
 
-}
-
+order();
