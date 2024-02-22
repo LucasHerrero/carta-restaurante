@@ -19,6 +19,8 @@ div.hidden {
 display: flex;
 flex-wrap: wrap;
 color: white;
+align-items: center;
+justify-content: center;
     }
 
     .plato{
@@ -139,3 +141,17 @@ justify-content: center;
    }
 
   }
+
+ .OrdenDiv {
+  padding: 20px;
+  display: flex;
+  flex-direction: column;
+  align-items: end;
+  justify-content: center;
+  .show {
+   display: block;
+  }
+  .hidden {
+    display: none;
+  }
+ }

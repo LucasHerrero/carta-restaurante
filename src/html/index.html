@@ -4,18 +4,28 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="/src/css/style.css">
+
     <title>Document</title>
 
 <h1>Carta resturante Lucas Herrero</h1>
 
-<h2>Elaborados</h2>
 <p> Filtrar por aptos: </p>
 <input type="checkbox" name="Cualquiera" id="Cualquiera" value="Cualquiera" checked > Cualquiera 
 <input type="checkbox" name="Celiacos" id="Celiacos" value="Celiacos" > Celiacos 
 <input type="checkbox" name="Lactosa" id="Lactosa" value="Lactosa"> Intolerante a la lactosa 
 <input type="checkbox" name="Veganos" id="Veganos" value="Veganos"> Veganos
 
+<h2>Elaborados</h2>
 
+<div class="OrdenDiv">
+    <button onclick="order()">Orden</button>
+    <div class="hidden">
+        
+        <button id="OrdenarNombre" onclick="">Ordenar por nombre</button>
+        <button id="OrdenarPrecio" onclick="">Ordenar por precio</button>
+    </div>
+</div>
+    
 <div id="platos">
 
 </div>

@@ -49,9 +49,19 @@ async function apiConnection() {
 
 
 
-function orderData(data) {
+function orderData(data, orderBy) {
+    // Ordenar los datos
+    data.sort((a, b) => {
+        if (orderBy === 'asc') {
+            return a.precio - b.precio;
+        } else {
+            return b.precio - a.precio;
+        }
+    });
 
-    data.forEach(plato => {
+
+}
+  data.forEach(plato => {
 
        
 
@@ -72,7 +82,7 @@ function orderData(data) {
 
     allCheckboxes();
     btnFav();
-}
+
 
 
 
@@ -192,4 +202,27 @@ console.log(arrFav);
    }); 
 });
 }
-apiConnection().then(data => orderData(data));
+apiConnection().then(data => orderData(data, 'desc')); // Para ordenar de mayor a menor
+
+function order(){
+const Orden = document.querySelector('div.hidden');
+const Orden2 = document.querySelector('div.show');
+
+if(Orden!==null){
+  Orden.classList.remove('hidden');
+  Orden.classList.add('show');
+
+}else if(Orden2!==null){
+  Orden2.classList.remove('show');
+  Orden2.classList.add('hidden');
+}
+}
+
+function orderAsc(data){
+    data.precio.sort((a, b) => a - b);
+}
+
+function orderDesc(){
+
+}
+
